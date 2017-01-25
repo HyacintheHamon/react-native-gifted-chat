@@ -64,12 +64,17 @@ class GiftedChat extends React.Component {
 
     this.invertibleScrollViewProps = {
       inverted: true,
-      keyboardShouldPersistTaps: this.props.keyboardShouldPersistTaps,
-      onKeyboardWillShow: this.onKeyboardWillShow,
-      onKeyboardWillHide: this.onKeyboardWillHide,
-      onKeyboardDidShow: this.onKeyboardDidShow,
-      onKeyboardDidHide: this.onKeyboardDidHide,
+      keyboardShouldPersistTaps: this.props.keyboardShouldPersistTaps
     };
+    if(this.props.handleKeyboard)
+    {
+      this.invertibleScrollViewProps = Object.assign({},this.invertibleScrollViewProps,{
+        onKeyboardWillShow: this.onKeyboardWillShow,
+        onKeyboardWillHide: this.onKeyboardWillHide,
+        onKeyboardDidShow: this.onKeyboardDidShow,
+        onKeyboardDidHide: this.onKeyboardDidHide
+      });
+    }
   }
 
   static append(currentMessages = [], messages) {
@@ -488,6 +493,7 @@ GiftedChat.defaultProps = {
   user: {},
   bottomOffset: 0,
   isLoadingEarlier: false,
+  handleKeyboard:true
 };
 
 GiftedChat.propTypes = {
@@ -518,6 +524,7 @@ GiftedChat.propTypes = {
   bottomOffset: React.PropTypes.number,
   isLoadingEarlier: React.PropTypes.bool,
   keyboardShouldPersistTaps: React.PropTypes.oneOf(['always', 'never', 'handled']),
+  handleKeyboard:React.PropTypes.bool
 };
 
 export {
