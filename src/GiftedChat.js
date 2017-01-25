@@ -258,8 +258,17 @@ class GiftedChat extends React.Component {
     });
   }
 
+  resetNewHeight(height)
+  {
+    this.setMaxHeight(height);
+    this.setState({
+      messagesContainerHeight: this.prepareMessagesContainerHeight(this.getMaxHeight() ),
+    });
+  }
+
   renderMessages() {
     const AnimatedView = this.props.isAnimated === true ? Animated.View : View;
+
     return (
       <AnimatedView style={{
         height: this.state.messagesContainerHeight,
